@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Acme&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+
+<body style="font-family: 'Acme', sans-serif;">
+    <div class="container-fluid" id="box">
+        <div class="row my-2">
+            <div class="col">
+                <div class="card border-danger">
+                    <div class="card-header bg-light m">
+                        <h1 class="text-center">ALL ABOUT MEALS</h1>
+                        <button type="button" class="btn btn-outline-danger float-left m-1">Home</button>
+                        <button type="button" class="btn btn-outline-danger float-left m-1">Feedback</button>
+                        <h6 class="float-right">created @masai<h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <form class="col-6 offset-3 text-center p-5" id="mealSearch">
+                <label>Search</label>
+                <input type="text" name="mealName" class="form-control text-center p-3" placeholder="Search..." id="inputdata"></input>
+                <input type="submit" class="btn-block btn-outline-danger float-left m-1 text-center p-1"></input>
+            </form>
+        </div>
+        <div id = "data">
+        </div>
+    </div>
+    <div id="showRecipe">
+    </div>
+
+    <script type="text/javascript" src="/home/shabaz/coding/projects/masai/sprint-3/script.js"></script>
+</body>
+
+</html>
