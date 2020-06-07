@@ -1,4 +1,5 @@
 var categoryObj
+// api get request for cetaegories
 var res = new XMLHttpRequest()
 res.open('GET', 'https://www.themealdb.com/api/json/v1/1/categories.php')
 res.send();
@@ -10,13 +11,12 @@ var row = document.createElement('div')
 row.setAttribute('class', 'row')
 catDiv.appendChild(row)
 
+//onload displaying detials of categories
 res.onload = function () {
     if (res.status == 200) {
         categoryObj = JSON.parse(res.response)
         console.log(categoryObj)
-
-
-
+        // meal card including details of meal
         for (var i = 0; i < categoryObj.categories.length; i++) {
 
             var col = document.createElement('div')
@@ -55,24 +55,49 @@ var obj
 function submit() {
     event.preventDefault()
     var input = document.getElementById("inputdata").value
-    var xhr = new XMLHttpRequest()
-    xhr.open('GET', 'https://www.themealdb.com/api/json/v1/1/search.php?f=' + input)
-    xhr.send();
+    console.log(input.length)
 
-    xhr.onload = function () {
-        if (input.length == 1) {
+    if (input.length == 0) {
+        alert("Please enter the meal to see the Recipe")
+    }
+    else if(input.length == 1){
+        //api get request for mealname with 1 string length
+        var xhr = new XMLHttpRequest()
+        xhr.open('GET', 'https://www.themealdb.com/api/json/v1/1/search.php?f=' + input)
+        xhr.send();
+
+        xhr.onload = function () {
             if (xhr.status == 200) {
                 obj = JSON.parse(xhr.response)
                 console.log(obj)
-                showData()
+                showData() //function call to make cards of different meals got from api response
             }
             else {
                 console.log("Error Code is:" + xhr.status);
             }
         }
     }
+    else if(input.length > 1){
+        //api get request for mealname greater than 1
+        var xhr = new XMLHttpRequest()
+        xhr.open('GET', 'https://www.themealdb.com/api/json/v1/1/search.php?s=' + input)
+        xhr.send();
+
+        xhr.onload = function () {
+            if (xhr.status == 200) {
+                obj = JSON.parse(xhr.response)
+                console.log(obj)
+                showData() //function call to make cards of different meals got from api response
+            }
+            else {
+                console.log("Error Code is:" + xhr.status);
+            }
+        
+        }
+    }
 }
 
+//function make cards of all the fetched meals
 function showData() {
     var divData = document.getElementById("data")
     divData.setAttribute('class', 'container-fluid')
@@ -85,7 +110,7 @@ function showData() {
     for (var i = 0; i < obj.meals.length; i++) {
 
         var col = document.createElement('div')
-        col.setAttribute('class', 'col-3')
+        col.setAttribute('class','col-3')
         row.appendChild(col)
 
         var meal = document.createElement("div")
@@ -115,10 +140,11 @@ function showData() {
         recipe.setAttribute("value", i)
         cardBody.appendChild(recipe)
 
-        recipe.onclick = rec
+        recipe.onclick = rec //firing rec function to the recipe of target meal 
     }
 }
 
+//function get details of a perticular meal recipe
 var rec = function details(e) {
     event.preventDefault()
     var index = e.target.value
@@ -192,16 +218,5 @@ var rec = function details(e) {
             col3.appendChild(li1)
         }
 
-    }
-
-    var backButton = document.createElement("button")
-    backButton.innerHTML = "Go back"
-    backButton.setAttribute('class', 'text-center btn-lg btn-outline-danger offset-6 my-3')
-    mainBody.appendChild(backButton)
-    backButton.addEventListener('click', mainPage)
-    function mainPage() {
-        body.style.display = "inline"
-        catDiv.style.display = "inline"
-        mainBody.style.display = "none"
     }
 }
